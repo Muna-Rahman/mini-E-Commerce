@@ -8,7 +8,7 @@ import LoadingView from "../components/LoadingView";
 import ErrorView from "../components/ErrorView";
 
 export default function ProductDetailsScreen({ route, navigation }) {
-  // productId gets passed in when we navigate here from HomeScreen
+  // get the productId from the route params, and use it to fetch the product details from the API. Show a loading indicator while fetching, and an error message if the fetch fails. Once the product is loaded, show its details and an "Add to Cart" button that adds it to the cart context.
   const { productId } = route.params;
   const { addToCart } = useCart();
 

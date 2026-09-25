@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Cart context. Keeps the list of cart items and the actions to change it.
-// itemCount and subtotal are just calculated from `items` on every render -
-// the cart is small so there's no real need to memoize it.
+// a simple cart context that keeps track of the items in the cart and exposes functions to add, remove, and update them.
 
 const CartContext = createContext(null);
 
@@ -14,8 +12,7 @@ export function CartProvider({ children }) {
       const alreadyInCart = current.find((item) => item.id === product.id);
 
       if (alreadyInCart) {
-        // already have this product, just bump the quantity instead of
-        // adding a second row for the same item
+        // if the product is already in the cart, just increase its quantity by 1
         return current.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
@@ -49,8 +46,7 @@ export function CartProvider({ children }) {
       const updated = current.map((item) =>
         item.id === id ? { ...item, quantity: item.quantity - 1 } : item
       );
-      // if quantity hits 0, just drop it from the cart instead of
-      // showing a "0" row
+      // filter out any items that have a quantity of 0, so they don't show up in the cart anymore
       return updated.filter((item) => item.quantity > 0);
     });
   }

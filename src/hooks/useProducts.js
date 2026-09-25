@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productsApi";
 
-// Small hook so the Home screen doesn't have to deal with loading/error
-// state by itself. Just fetches the product list once on mount, and
-// exposes a way to reload (used for the Retry button and pull-to-refresh).
+// A custom hook that fetches the list of products from the API and exposes loading, refreshing, and error state. It also provides functions to reload or refresh the products.
 
 export function useProducts() {
   const [products, setProducts] = useState([]);

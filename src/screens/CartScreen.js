@@ -13,8 +13,7 @@ import { formatCurrency } from "../utils/currency";
 import AppButton from "../components/AppButton";
 import EmptyState from "../components/EmptyState";
 
-// one row in the cart list, pulled out just to keep the main
-// component below a little shorter
+// A single row in the cart list, showing the product thumbnail, title, price, quantity controls, and a remove button. The quantity controls call the onIncrease and onDecrease callbacks passed in as props, and the remove button calls onRemove.
 function CartRow({ item, onIncrease, onDecrease, onRemove }) {
   return (
     <View style={styles.row}>

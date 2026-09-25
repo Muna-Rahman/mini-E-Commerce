@@ -12,10 +12,7 @@ import ProductDetailsScreen from "../screens/ProductDetailsScreen";
 import CartScreen from "../screens/CartScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
-// Three navigators here:
-// - Auth Stack: just the Login screen, shown when nobody is logged in
-// - Home Stack: product list -> product details, nested inside the Home tab
-// - Main Tabs: Home / Cart / Profile, shown once logged in
+// the main navigator for the app. If the user is logged in, it shows the main tabs, otherwise it shows the login screen. The main tabs include a home tab (with a stack navigator for the product list and product details), a cart tab, and a profile tab.
 
 const AuthStackNav = createNativeStackNavigator();
 const HomeStackNav = createNativeStackNavigator();
@@ -46,8 +43,7 @@ function HomeStack() {
   );
 }
 
-// plain text tab icons - kept it simple instead of pulling in an icon
-// library just for three tabs
+// A simple text label for the bottom tabs, with a different color when focused vs not focused
 function TabLabel({ text, focused }) {
   return (
     <Text style={{ fontSize: 11, color: focused ? "#2563eb" : "#94a3b8" }}>
@@ -94,10 +90,7 @@ function MainTabs() {
 export default function AppNavigator() {
   const { isAuthenticated } = useAuth();
 
-  // this is the actual switch the brief asks for: while not logged in,
-  // only the auth stack is reachable, once logged in only the main tabs
-  // are reachable. Logging out swaps this back automatically because
-  // isAuthenticated changes.
+  // if the user is logged in, show the main tabs, otherwise show the auth stack
   return (
     <NavigationContainer>
       {isAuthenticated ? <MainTabs /> : <AuthStack />}

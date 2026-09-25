@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Simple auth context. Holds the logged in user and exposes login/logout.
-// Since the assignment allows mock auth, we just check against one
-// hardcoded demo account instead of calling a real backend.
-
+// a very simple authentication context that just keeps track of a single demo user and whether they're logged in or not. 
 const AuthContext = createContext(null);
 
 const DEMO_EMAIL = "intern@example.com";
@@ -18,8 +15,7 @@ export function AuthProvider({ children }) {
     setError(null);
     setIsLoading(true);
 
-    // fake a network call so the loading spinner actually has something
-    // to show, like a real login request would
+    // fake network delay to simulate a real login request
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     const enteredEmail = email.trim().toLowerCase();
@@ -40,8 +36,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    // clear the user completely, don't just navigate away, otherwise
-    // the app would still think we're logged in
+    // clear the user and any error state, so if they log back in after logging out, they don't see the old error message
     setUser(null);
     setError(null);
   }

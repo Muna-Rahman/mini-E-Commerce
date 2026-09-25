@@ -3,6 +3,7 @@ import {
   FlatList,
   Pressable,
   RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -22,13 +23,10 @@ export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // build the list of categories from whatever products came back,
-  // "all" is always first so there's an option to clear the filter
+
   const categorySet = new Set(products.map((product) => product.category));
   const categories = ["all", ...Array.from(categorySet)];
 
-  // same filter chain the assignment brief suggested - search by title,
-  // then narrow down by category if one is picked
   const filteredProducts = products
     .filter((product) =>
       product.title.toLowerCase().includes(search.trim().toLowerCase())
@@ -53,26 +51,31 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <SearchBar value={search} onChangeText={setSearch} />
 
-      <FlatList
-        data={categories}
+   
+      <ScrollView
         horizontal
-        keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
+        style={styles.categoryList}
         contentContainerStyle={styles.categoryRow}
-        renderItem={({ item }) => {
+      >
+        {categories.map((item) => {
           const active = item === selectedCategory;
           return (
             <Pressable
+              key={item}
               onPress={() => setSelectedCategory(item)}
               style={[styles.chip, active && styles.chipActive]}
             >
-              <Text style={[styles.chipText, active && styles.chipTextActive]}>
+              <Text
+                style={[styles.chipText, active && styles.chipTextActive]}
+                numberOfLines={1}
+              >
                 {item}
               </Text>
             </Pressable>
           );
-        }}
-      />
+        })}
+      </ScrollView>
 
       <FlatList
         data={filteredProducts}
@@ -106,14 +109,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8fafc",
   },
+  categoryList: {
+    flexGrow: 0,
+  },
   categoryRow: {
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
+ 
   chip: {
+    height: 34,
+    justifyContent: "center",
+    alignSelf: "flex-start",
     paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
+    borderRadius: 17,
     backgroundColor: "#ffffff",
     borderWidth: 1,
     borderColor: "#e2e8f0",

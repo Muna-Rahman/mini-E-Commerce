@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../context/AuthContext";
 import AppButton from "../components/AppButton";
 
@@ -8,7 +8,10 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user?.avatar }} style={styles.avatar} />
+      <View style={styles.avatar}>
+        <Text style={styles.avatarEmoji}>{user?.avatarEmoji ?? "🙂"}</Text>
+      </View>
+
       <Text style={styles.name}>{user?.name}</Text>
       <Text style={styles.email}>{user?.email}</Text>
 
@@ -36,6 +39,11 @@ const styles = StyleSheet.create({
     borderRadius: 48,
     backgroundColor: "#e2e8f0",
     marginBottom: 16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatarEmoji: {
+    fontSize: 44,
   },
   name: {
     fontSize: 18,

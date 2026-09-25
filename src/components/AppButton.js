@@ -6,9 +6,7 @@ import {
   Text,
 } from "react-native";
 
-// Basic reusable button. "primary" is the solid blue one used for the
-// main action on a screen, "secondary" is the outlined version for
-// things like Back or Log Out.
+// Basic reusable button
 
 export default function AppButton({
   title,
