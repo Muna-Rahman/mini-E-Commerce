@@ -48,8 +48,8 @@ export default function CartScreen() {
     useCart();
 
   function handleCheckout() {
-    // checkout isn't part of this assignment, just let the user know
-    Alert.alert("Checkout", "Checkout is not implemented in this assignment.");
+    // checkout not implemented as mentioned in the assignment instructions.
+    Alert.alert("Checkout", "Checkout functionality is not implemented.");
   }
 
   if (items.length === 0) {
